@@ -9,10 +9,13 @@ for i in ifaces_list:
 	ip_mask = ni.ifaddresses(i)[ni.AF_INET][0]['netmask']
 	ifaces_info[i]=(ip_address,ip_mask)
 
-#print(ifaces_info)
+print(ifaces_info)
 #for key in ifaces_info.keys():
 #	ip_bin = socket.inet_aton(ifaces_info[key][0])
 #	mask_bin = socket.inet_aton(ifaces_info[key][1])
 #	print(ip_bin.decode("utf-8") ,mask_bin.decode("utf-8"))
-for key in ifaces_info.keys():
-	print(ifaces_info[key])
+#for key in ifaces_info.keys():
+#	print(ifaces_info[key])
+
+default_gateway_info=ni.gateways()['default'][2]
+print(default_gateway_info)
