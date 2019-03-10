@@ -17,10 +17,10 @@ dest_ip =str(sys.argv[1])
 #print(dest_ip)
 package = IP(dst = dest_ip)/ICMP()
 with outnull():
-    reply = sr1(package, timeout = 0.2)
-#print(reply)
+    reply,unasw = sr(package, timeout = 0.2)
+#print(reply[0])
 if reply:
-    if((reply.ihl == 5) and (reply.src == dest_ip)):
+    if((reply[0][1].ihl == 5) and (reply[0][1].src == dest_ip)):
         print("Host " + dest_ip + " is online")
 else:
      print("Host " + dest_ip + " is offline")
