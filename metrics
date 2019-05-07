@@ -7,12 +7,12 @@ import socket
 system = socket.gethostname()
 def cpu_info():
     cpu_info = psutil.cpu_times()
-    print("{0}.cpu_total.{1}.idle".format(system,cpu_info.idle))
-    print("{0}.cpu_total.{1}.user").format(system,cpu_info.user))
-    print("{0}.cpu_total.{1}.guest").format(system,cpu_info.guest))
-    print("{0}.cpu_total.{1}.oiwait").format(system,cpu_info.iowait))
-    print("{0}.cpu_total.{1}.stolen").format(system,cpu_info.steal))
-    print("{0}.cpu_total.{1}.system").format(system,cpu_info.system))
+    print("{0}.cpu_total.idle {1}".format(system,cpu_info.idle))
+    print("{0}.cpu_total.user {1}".format(system,cpu_info.user))
+    print("{0}.cpu_total.guest {1}".format(system,cpu_info.guest))
+    print("{0}.cpu_total.oiwait: {1}".format(system,cpu_info.iowait))
+    print("{0}.cpu_total.stolen: {1}".format(system,cpu_info.steal))
+    print("{0}.cpu_total.system: {1}".format(system,cpu_info.system))
 
 
 
