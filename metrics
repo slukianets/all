@@ -6,6 +6,10 @@ import socket
 
 system = socket.gethostname()
 
+def usage():
+    print("Please use following syntax:")
+    print("metrics [-h]|[--help] [--cpu] [--mem]")
+
 def cpu_info():
     print("Start reading CPU information...")
     cpu_info = psutil.cpu_times(percpu = True)
@@ -29,23 +33,26 @@ def memory_info():
     print('Swap Memory Used: {0}'.format(swaped_mem.used))
     print('Swap Memory Free: {0}'.format(swaped_mem.free))
 
+def helper():
+    print("Syntax: metrics [-h]|[--help] [--cpu] [--mem]")
+    print("The utility metrics is used for quick chekcing CPU and MEMORY information on your Linux PC or server.")
+    print("Please, for using this utility, check if you have the lastest verion of Python 3.5 (or later) and installed packge Pcutil.")
+
+if (len(sys.argv) == 1):
+    usage()
+    sys.exit(2)
+
 try:
-    opts_list, args_list = getopt.getopt(sys.argv[1:], "hc:m", ["help", "cpu" ,"mem"])
+    opts_list, args_list = getopt.getopt(sys.argv[1:], "hcm", ["help", "cpu" ,"mem"])
 except getopt.GetoptError as err:
     print(err)
-    print("Please help yourself")
+    usage()
     sys.exit(2)
 for opt, arg in opts_list:
     if opt == "--cpu":
-        print(arg)
-        if (arg):
-            print("show cpu info per cpu")
-            cpu_info(True)
-        else:
-            print("show cpu info")
-            cpu_info()
-    elif opt == "--mem":
-        print("show memory info")
+        cpu_info()
+    elif opt == "--mem":  
         memory_info()
     elif opt in ("-h", "--help"):
-        print("HELP")
+        helper()
+
