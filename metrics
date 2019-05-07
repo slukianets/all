@@ -5,18 +5,18 @@ import psutil
 import socket
 
 system = socket.gethostname()
-def cpu_info( per_cpu = False):
+def cpu_info( per_cpu = True):
     print("START CPU")
     cpu_info = psutil.cpu_times(percpu = per_cpu)
     print("cpu_info: ", cpu_info )
     if (per_cpu):
-        for i in len(cpu_info):
-            print("{0}.cpu_{2}.idle {1}".format(system,cpu_info.idle, i + 1))
-            print("{0}.cpu_{2}.user {1}".format(system,cpu_info.user, i + 1))
-            print("{0}.cpu_{2}.guest {1}".format(system,cpu_info.guest, i + 1))
-            print("{0}.cpu_{2}.oiwait: {1}".format(system,cpu_info.iowait, i + 1))
-            print("{0}.cpu_{2}.stolen: {1}".format(system,cpu_info.steal, i + 1))
-            print("{0}.cpu_{2}.system: {1}".format(system,cpu_info.system, i + 1))
+        for i in range(0,len(cpu_info)):
+            print("{0}.cpu_{2}.idle {1}".format(system,cpu_info[i].idle, i + 1))
+            print("{0}.cpu_{2}.user {1}".format(system,cpu_info[i].user, i + 1))
+            print("{0}.cpu_{2}.guest {1}".format(system,cpu_info[i].guest, i + 1))
+            print("{0}.cpu_{2}.oiwait: {1}".format(system,cpu_info[i].iowait, i + 1))
+            print("{0}.cpu_{2}.stolen: {1}".format(system,cpu_info[i].steal, i + 1))
+            print("{0}.cpu_{2}.system: {1}".format(system,cpu_info[i].system, i + 1))
     else:
         print("{0}.cpu_total.idle {1}".format(system,cpu_info.idle))
         print("{0}.cpu_total.user {1}".format(system,cpu_info.user))
@@ -63,6 +63,7 @@ except getopt.GetoptError as err:
     sys.exit(2)
 for opt, arg in opts_list:
     if opt == "--cpu":
+        print(arg)
         if (arg):
             print("show cpu info per cpu")
             cpu_info(True)
