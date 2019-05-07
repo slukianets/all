@@ -5,10 +5,9 @@ import psutil
 import socket
 
 system = socket.gethostname()
-#cpu_param_list = ["idle", "user", "guest", "oiwait","steal", "system"]
 
 def cpu_info():
-    print("START CPU")
+    print("Start reading CPU information...")
     cpu_info = psutil.cpu_times(percpu = True)
     for i in range(0,len(cpu_info)):
         print("{0}.cpu_{2}.idle {1}".format(system,cpu_info[i].idle, i + 1))
@@ -18,16 +17,8 @@ def cpu_info():
         print("{0}.cpu_{2}.stolen: {1}".format(system,cpu_info[i].steal, i + 1))
         print("{0}.cpu_{2}.system: {1}".format(system,cpu_info[i].system, i + 1))
 
-
-
-
-
-
-
-
-
 def memory_info():
-    print("START PROC")
+    print("Start reading memory information...")
     virtual_mem = psutil.virtual_memory()
     swaped_mem = psutil.swap_memory()
     print('Virtual Memory Total: {0}'.format(virtual_mem.total))
@@ -38,10 +29,6 @@ def memory_info():
     print('Swap Memory Used: {0}'.format(swaped_mem.used))
     print('Swap Memory Free: {0}'.format(swaped_mem.free))
 
-print("Number of arg: ", len(sys.argv))
-print("Arg list: ", str(sys.argv[1:]))
-
-#parser = optparse.OptionParser()
 try:
     opts_list, args_list = getopt.getopt(sys.argv[1:], "hc:m", ["help", "cpu" ,"mem"])
 except getopt.GetoptError as err:
@@ -62,12 +49,3 @@ for opt, arg in opts_list:
         memory_info()
     elif opt in ("-h", "--help"):
         print("HELP")
-
-#parser.add_option("--cpu", dest="cpu_info")
-#parser.add_option("--mem", dest="memory_info")
-#opts_list, args_list = parser.parse_args()
-
-
-#print(opts_list)
-#print(args_list)
-
