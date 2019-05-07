@@ -5,20 +5,37 @@ import psutil
 import socket
 
 system = socket.gethostname()
-def cpu_info():
-    cpu_info = psutil.cpu_times()
-    print("{0}.cpu_total.idle {1}".format(system,cpu_info.idle))
-    print("{0}.cpu_total.user {1}".format(system,cpu_info.user))
-    print("{0}.cpu_total.guest {1}".format(system,cpu_info.guest))
-    print("{0}.cpu_total.oiwait: {1}".format(system,cpu_info.iowait))
-    print("{0}.cpu_total.stolen: {1}".format(system,cpu_info.steal))
-    print("{0}.cpu_total.system: {1}".format(system,cpu_info.system))
+def cpu_info( per_cpu = False):
+    print("START CPU")
+    cpu_info = psutil.cpu_times(percpu = per_cpu)
+    print("cpu_info: ", cpu_info )
+    if (per_cpu):
+        for i in len(cpu_info):
+            print("{0}.cpu_{2}.idle {1}".format(system,cpu_info.idle, i + 1))
+            print("{0}.cpu_{2}.user {1}".format(system,cpu_info.user, i + 1))
+            print("{0}.cpu_{2}.guest {1}".format(system,cpu_info.guest, i + 1))
+            print("{0}.cpu_{2}.oiwait: {1}".format(system,cpu_info.iowait, i + 1))
+            print("{0}.cpu_{2}.stolen: {1}".format(system,cpu_info.steal, i + 1))
+            print("{0}.cpu_{2}.system: {1}".format(system,cpu_info.system, i + 1))
+    else:
+        print("{0}.cpu_total.idle {1}".format(system,cpu_info.idle))
+        print("{0}.cpu_total.user {1}".format(system,cpu_info.user))
+        print("{0}.cpu_total.guest {1}".format(system,cpu_info.guest))
+        print("{0}.cpu_total.oiwait: {1}".format(system,cpu_info.iowait))
+        print("{0}.cpu_total.stolen: {1}".format(system,cpu_info.steal))
+        print("{0}.cpu_total.system: {1}".format(system,cpu_info.system))
 
 
 
 
 
 
+#print("{0}.cpu_total.idle {1}".format(system,cpu_info.idle))
+#        print("{0}.cpu_total.user {1}".format(system,cpu_info.user))
+#        print("{0}.cpu_total.guest {1}".format(system,cpu_info.guest))
+#        print("{0}.cpu_total.oiwait: {1}".format(system,cpu_info.iowait))
+#        print("{0}.cpu_total.stolen: {1}".format(system,cpu_info.steal))
+#        print("{0}.cpu_total.system: {1}".format(system,cpu_info.system))
 
 
 
@@ -39,20 +56,22 @@ print("Arg list: ", str(sys.argv[1:]))
 
 #parser = optparse.OptionParser()
 try:
-    opts_list, args_list = getopt.getopt(sys.argv[1:], "hcmt:", ["help", "cpu" ,"mem", "time"])
+    opts_list, args_list = getopt.getopt(sys.argv[1:], "hc:m", ["help", "cpu" ,"mem"])
 except getopt.GetoptError as err:
     print(err)
     print("Please help yourself")
     sys.exit(2)
 for opt, arg in opts_list:
     if opt == "--cpu":
-        print("show cpu info")
-        cpu_info()
+        if (arg):
+            print("show cpu info per cpu")
+            cpu_info(True)
+        else:
+            print("show cpu info")
+            cpu_info()
     elif opt == "--mem":
         print("show memory info")
         memory_info()
-    elif opt == "--time":
-        print("show with time in:", arg)
     elif opt in ("-h", "--help"):
         print("HELP")
 
