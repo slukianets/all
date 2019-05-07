@@ -1,0 +1,55 @@
+#!/usr/bin/python
+
+import sys, getopt
+import psutil
+import socket
+
+
+def cpu_info():
+
+
+
+
+
+
+def memory_info():
+    print("START PROC")
+    virtual_mem = psutil.virtual_memory()
+    swaped_mem = psutil.swap_memory()
+    print('Virtual Memory Total: {0}'.format(virtual_mem.total))
+    print('Virtual Memory Used: {0}'.format(virtual_mem.used))
+    print('Virtual Memory Free: {0}'.format(virtual_mem.available))
+    print('Virtual Memory Shared: {0}'.format(virtual_mem.active))
+    print('Swap Memory Total: {0}'.format(swaped_mem.total))
+    print('Swap Memory Used: {0}'.format(swaped_mem.used))
+    print('Swap Memory Free: {0}'.format(swaped_mem.free))
+
+print("Number of arg: ", len(sys.argv))
+print("Arg list: ", str(sys.argv[1:]))
+
+#parser = optparse.OptionParser()
+try:
+    opts_list, args_list = getopt.getopt(sys.argv[1:], "hcmt:", ["help", "cpu" ,"mem", "time"])
+except getopt.GetoptError as err:
+    print(err)
+    print("Please help yourself")
+    sys.exit(2)
+for opt, arg in opts_list:
+    if opt == "--cpu":
+        print("show cpu info")
+    elif opt == "--mem":
+        print("show memory info")
+        memory_info()
+    elif opt == "--time":
+        print("show with time in:", arg)
+    elif opt in ("-h", "--help"):
+        print("HELP")
+
+#parser.add_option("--cpu", dest="cpu_info")
+#parser.add_option("--mem", dest="memory_info")
+#opts_list, args_list = parser.parse_args()
+
+
+#print(opts_list)
+#print(args_list)
+
