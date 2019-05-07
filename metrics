@@ -7,28 +7,22 @@ import socket
 system = socket.gethostname()
 #cpu_param_list = ["idle", "user", "guest", "oiwait","steal", "system"]
 
-def cpu_info( per_cpu = True):
+def cpu_info():
     print("START CPU")
-    cpu_param_list = ["idle", "user", "guest", "oiwait", "steal", "system"]
-    cpu_info = psutil.cpu_times(percpu = per_cpu)
-    print("cpu_info: ", cpu_info )
-    if (per_cpu):
-        for i in range(0,len(cpu_info)):
-            for l in cpu_param_list:
-                print("l: ",l)
-                print("{0}.cpu_{2}.{3}: {1}".format(system, "cpu_info.l", i + 1, l))
+    cpu_info = psutil.cpu_times(percpu = True)
+    for i in range(0,len(cpu_info)):
+        print("{0}.cpu_{2}.idle {1}".format(system,cpu_info[i].idle, i + 1))
+        print("{0}.cpu_{2}.user {1}".format(system,cpu_info[i].user, i + 1))
+        print("{0}.cpu_{2}.guest {1}".format(system,cpu_info[i].guest, i + 1))
+        print("{0}.cpu_{2}.oiwait: {1}".format(system,cpu_info[i].iowait, i + 1))
+        print("{0}.cpu_{2}.stolen: {1}".format(system,cpu_info[i].steal, i + 1))
+        print("{0}.cpu_{2}.system: {1}".format(system,cpu_info[i].system, i + 1))
 
 
 
 
 
 
-#print("{0}.cpu_total.idle {1}".format(system,cpu_info.idle))
-#        print("{0}.cpu_total.user {1}".format(system,cpu_info.user))
-#        print("{0}.cpu_total.guest {1}".format(system,cpu_info.guest))
-#        print("{0}.cpu_total.oiwait: {1}".format(system,cpu_info.iowait))
-#        print("{0}.cpu_total.stolen: {1}".format(system,cpu_info.steal))
-#        print("{0}.cpu_total.system: {1}".format(system,cpu_info.system))
 
 
 
