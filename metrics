@@ -4,8 +4,18 @@ import sys, getopt
 import psutil
 import socket
 
-
+system = socket.gethostname()
 def cpu_info():
+    cpu_info = psutil.cpu_times()
+    print("{0}.cpu_total.{1}.idle".format(system,cpu_info.idle))
+    print("{0}.cpu_total.{1}.user")
+    print()
+    print()
+    print()
+    print()
+
+
+
 
 
 
@@ -37,6 +47,7 @@ except getopt.GetoptError as err:
 for opt, arg in opts_list:
     if opt == "--cpu":
         print("show cpu info")
+        cpu_info()
     elif opt == "--mem":
         print("show memory info")
         memory_info()
