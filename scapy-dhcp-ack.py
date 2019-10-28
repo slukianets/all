@@ -3,6 +3,8 @@ import re
 
 #pcap_file = rdpcap('/Users/lukianets/dhcp-log.pcap')
 #pcap_file = rdpcap('/Users/lukianets/core3-dhcp-pkg.pcap')
+
+
 pcap_file = rdpcap('/Users/lukianets/atlas-dhcp-ipv6.pcap')
 
 
@@ -32,10 +34,8 @@ for pkg in pcap_file:
         else:
             if (pkg[2].sport == 546) or (pkg[2].sport == 547):
                 if pkg[2].msgtype == 13 and pkg[2][4].msgtype == 7:
-                    if pkg['DHCP6 IA Address Option (IA_TA or IA_NA suboption)'].addr:
-                        leased_ip_address = pkg['DHCP6 IA Address Option (IA_TA or IA_NA suboption)'].addr
-                    if pkg['DHCP6 Client Identifier Option'][1].lladdr:
-                        device_mac_address = pkg['DHCP6 Client Identifier Option'][1].lladdr.upper()
+                    leased_ip_address = pkg['DHCP6 IA Address Option (IA_TA or IA_NA suboption)'].addr
+                    device_mac_address = pkg['DHCP6 Client Identifier Option'][1].lladdr.upper()
                     print(leased_ip_address, " ", device_mac_address)
 
     except AttributeError:
