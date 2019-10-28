@@ -29,8 +29,7 @@ for pkg in pcap_file:
                     if pkg[DHCP].options[-5][0] == 'requested_addr':
                         leased_ip_address = getIpV4Address(pkg[DHCP].options[-5][1])
                         device_mac_address = getMacAddress(pkg[BOOTP].chaddr[0:6])
-                        if leased_ip_address:
-                             print(leased_ip_address, " ", device_mac_address)
+                        print(leased_ip_address," ", device_mac_address)
         else:
             if (pkg[2].sport == 546) or (pkg[2].sport == 547):
                 if pkg[2].msgtype == 13 and pkg[2][4].msgtype == 7:
