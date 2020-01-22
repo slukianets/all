@@ -12,11 +12,11 @@ def scan(ip):
     return list_arp_response
 
 def output_results(list):
-    print("IP", \t\t\t, "MAC")
-    print("-" * 30)
+    print("IP\t\t\tMAC")
+    print("-" * 42)
     for element in list:
-        print(element["ip"], \t\t, element["mac"])
-        print("-" * 30)
+        print(element["ip"],"\t\t", element["mac"])
+        print("-" * 42)
 
-scan_result = scan("10.21.100.1")
+scan_result = scan("10.0.2.1/24")
 output_results(scan_result)
