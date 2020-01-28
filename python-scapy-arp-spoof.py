@@ -6,10 +6,13 @@ import argparse
 
 def get_arguments():
     parser = argparse.ArgumentParser()
-    parser.add_argument("-t", "--target", dest="target", help="Target IP address and IP range")
+    parser.add_argument("-t", "--target", dest="target", help="Target IP address")
+    parser.add_argument("-g", "--gateway", dest="gateway", help="Gateway IP address")
     options = parser.parse_args()
     if not options.target:
-        parser.error("[-] Please specify an IP address or an IP range, use --help for more info.")
+        parser.error("[-] Please specify an Target IP address , use --help for more info.")
+    elif options.gateway:
+        parser.error("[-] Please specify an Gateway IP address, use --help for more info.")
     return options
 
 def get_mac(ip):
@@ -20,4 +23,5 @@ def get_mac(ip):
 
 options = get_arguments()
 print(get_mac(options.target))
+print(get_mac(options.gateway))
 
