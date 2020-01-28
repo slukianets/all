@@ -16,6 +16,6 @@ def get_mac(ip):
     response = arping(ip, verbose = False)[0]
     mac = response[1].hwsrc
     return mac
-
-print(get_mac("10.0.2.1"))
+options = get_arguments()
+print(get_mac(options.target))
 
