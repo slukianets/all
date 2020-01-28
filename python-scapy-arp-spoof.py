@@ -13,11 +13,11 @@ def get_arguments():
     return options
 
 def get_mac(ip):
-    response = scapy.arping(ip, verbose = False)[0]
-    print(response[1].show())
-    mac = response[1].hwsrc
-    print(mac)
+    response, unresponse = scapy.arping(ip, verbose = False)
+    mac = response[0][1].hwsrc
     return mac
+
+
 options = get_arguments()
 print(get_mac(options.target))
 
