@@ -11,7 +11,7 @@ def get_arguments():
     options = parser.parse_args()
     if not options.target:
         parser.error("[-] Please specify an Target IP address , use --help for more info.")
-    elif options.gateway:
+    elif not options.gateway:
         parser.error("[-] Please specify an Gateway IP address, use --help for more info.")
     return options
 
