@@ -19,9 +19,9 @@ def get_arguments():
 
 def forwarding(val):
     if val:
-        subprocess.Popen("echo > 1 /proc/sys/net/ipv4/ip_forward", shell=True, subprocess.PIPE)
+        subprocess.Popen("echo > 1 /proc/sys/net/ipv4/ip_forward", shell=True, stdout=subprocess.PIPE)
     else:
-        subprocess.Popen("echo > 0 /proc/sys/net/ipv4/ip_forward", shell=True, subprocess.PIPE)
+        subprocess.Popen("echo > 0 /proc/sys/net/ipv4/ip_forward", shell=True, stdout=subprocess.PIPE)
 
 
 
