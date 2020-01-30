@@ -19,8 +19,10 @@ def get_arguments():
 
 def forwarding(val):
     if val:
+        print("[+] Enabled forwardig packets")
         subprocess.Popen("echo > 1 /proc/sys/net/ipv4/ip_forward", shell=True, stdout=subprocess.PIPE)
     else:
+        print("[-] Disabled forwardig packets")
         subprocess.Popen("echo > 0 /proc/sys/net/ipv4/ip_forward", shell=True, stdout=subprocess.PIPE)
 
 
