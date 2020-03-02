@@ -10,12 +10,13 @@ def get_arguments():
     parser = argparse.ArgumentParser()
     parser.add_argument("-t", "--target", dest="target", help="Target IP address")
     parser.add_argument("-g", "--gateway", dest="gateway", help="Gateway IP address")
-    options = parser.parse_args()
-    if not options.target:
+    arg_options = parser.parse_args()
+    if not arg_options.target:
         parser.error("[-] Please specify an Target IP address , use --help for more info.")
-    elif not options.gateway:
+    elif not arg_options.gateway:
         parser.error("[-] Please specify an Gateway IP address, use --help for more info.")
-    return options
+    return arg_options
+
 
 def forwarding(val):
     if val:
@@ -24,7 +25,6 @@ def forwarding(val):
     else:
         print("[-] Disabled forwardig packets")
         os.system("echo 0 > /proc/sys/net/ipv4/ip_forward")
-
 
 
 def get_mac(ip):
