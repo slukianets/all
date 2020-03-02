@@ -1,19 +1,20 @@
 #!/usr/bin/env python
 
-import netfilterqueueu
+import netfilterqueue
 import scapy.all as scapy
 
 def process_packet(packet):
     scapy_packet = scapy.IP(packet.get_payload())
     if scapy_packet.haslayer(scapy.DNSRR):
-        qname = scapy_packet.[scapy.DNSQR].qname
-        print(scapy_packet.show())
-        print(qname)
+        qname = str(scapy_packet[scapy.DNSQR].qname)
+        if "www.google.com" in qname:
+            print(scapy_packet.show())
+            print(qname)
 
     packet.accept()
 
 
-queue = netfilterqueueu.Netfilterqueue()
-queue.bind((0, process_packet)
-queue.run
+queue = netfilterqueue.NetfilterQueue()
+queue.bind(0, process_packet)
+queue.run()
 
