@@ -3,7 +3,7 @@
 import scapy.all as scapy
 import argparse
 import time
-import subprocess
+import os
 
 
 def get_arguments():
@@ -20,10 +20,10 @@ def get_arguments():
 def forwarding(val):
     if val:
         print("[+] Enabled forwardig packets")
-        subprocess.Popen("echo > 1 /proc/sys/net/ipv4/ip_forward", shell=True, stdout=subprocess.PIPE)
+        os.system("echo 1 > /proc/sys/net/ipv4/ip_forward")
     else:
         print("[-] Disabled forwardig packets")
-        subprocess.Popen("echo > 0 /proc/sys/net/ipv4/ip_forward", shell=True, stdout=subprocess.PIPE)
+        os.system("echo 0 > /proc/sys/net/ipv4/ip_forward")
 
 
 
